@@ -4,8 +4,9 @@
   ],
   "plugins": [
     "transform-object-rest-spread",
+    "transform-class-properties",
     [
-      "babel-plugin-transform-builtin-extend",
+      "transform-builtin-extend",
       {
         "globals": [
           "Error",
