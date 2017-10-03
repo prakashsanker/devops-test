@@ -2,12 +2,15 @@
 
 Boilerplate for an API written in Express, based on some previous projects. It includes:
 
+* Full ES6/ES7 support via Babel/Babel Polyfill.
 * Code to force using SSL on production servers (your job to get
   the proper certs, I suggest getting free ones using
   [LetsEncrypt](https://letsencrypt.org/))
 * Some basic code for creating and validating JSON web tokens
 * Jest testing and ESLint already set up, with NPM scripts to invoke
   them.
+* Automatic code reloading when code changes
+* Debugger configuration
 
 ## Installation
 
@@ -60,6 +63,19 @@ npm run-script dev-server
 ```
 
 Et voilà! Visit [localhost:3000](http://localhost:3000) to see everything in action.
+
+#### Debugger
+
+If you are using VSCode, after running the dev server in your
+terminal, you can attach the VSCode debugger by clicking the
+debug panel and then hitting the play button using the
+"Attach debugger" configuration.
+
+Otherwise, you can figure out how to attach your own debugger to
+Node's built-in inspector, which should work on port 9229. I hear
+you can use Chrome to do this, but I haven't researched how.
+
+To insert a breakpoint, just add the line `debugger` to your code.
 
 ### ... the production server
 
