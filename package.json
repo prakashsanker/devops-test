@@ -1,7 +1,7 @@
 {
-  "name": "gymi-website",
+  "name": "express-api-boilerplate",
   "version": "0.0.0",
-  "description": "Global Youth Mentorship Initiative (GYMI) website",
+  "description": "Boilerplate for writing pretty Express-based APIs",
   "scripts": {
     "dev-server": "nodemon --exec \"babel-node --inspect src\"",
     "build": "babel -d ./build src",
