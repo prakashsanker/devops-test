@@ -10,6 +10,12 @@ import { hashPassword, comparePassword } from "../lib/crypto";
 
 const PUBLIC_FIELDS = ["id", "name"];
 
+const filterFields = (toFilter, allowedFields) => {
+  return allowedFields.reduce((memo, field) => {
+    return { ...memo, [field]: toFilter[field] };
+  }, {});
+};
+
 export class UsersDB {
   // This is where the users are stored. In a real app, use an actual
   // database, not just a varaible
@@ -29,7 +35,7 @@ export class UsersDB {
     }
 
     if (await comparePassword(password, user.passwordHash)) {
-      return user;
+      return filterFields(user, PUBLIC_FIELDS);
     }
     return null;
   };
@@ -41,11 +47,7 @@ export class UsersDB {
     // don't return entire users as stored in the database, because
     // we don't want to send password hashes to end users; only
     // return the public fields, as defined above.
-    return this.users.map(user => {
-      PUBLIC_FIELDS.reduce((memo, field) => {
-        return { ...memo, [field]: user[field] };
-      }, {});
-    });
+    return this.users.map(user => filterFields(user, PUBLIC_FIELDS));
   };
 
   /**
@@ -60,7 +62,7 @@ export class UsersDB {
       passwordHash: await hashPassword(password)
     };
     this.users = this.users.concat(newUser);
-    return newUser;
+    return filterFields(newUser, PUBLIC_FIELDS);
   };
 }
 
