@@ -2,13 +2,15 @@
 
 Boilerplate for an API written in Express, based on some previous projects. It includes:
 
+* Documentation and examples on how to use this boilerplate
+  effectively
 * Full ES6/ES7 support via Babel/Babel Polyfill.
 * Code to force using SSL on production servers (your job to get
   the proper certs, I suggest getting free ones using
   [LetsEncrypt](https://letsencrypt.org/))
 * Some basic code for creating and validating JSON web tokens
-* Jest testing and ESLint already set up, with NPM scripts to invoke
-  them.
+* Jest testing, and Prettier/ESLint linting already set up, with
+  NPM scripts to invoke them.
 * Automatic code reloading when code changes
 * Debugger configuration
 
@@ -44,14 +46,22 @@ place the `lodash` library in the `l` variable.
 
 ### tests
 
+Uses the [Jest test runner](https://facebook.github.io/jest/) to
+run tests.
+
 ```
 npm test
 ```
 
 ### lint
 
+Uses [Prettier](https://github.com/prettier/prettier) and
+[ESLint](https://eslint.org/)
+to standardize coding style and check imports.
+
 ```
-npm run-script lint
+npm run-script lint # shows lint errors
+npm run-script fix-lint # fixes lint errors, shows any remaining
 ```
 
 ### ... the development server
@@ -77,6 +87,21 @@ you can use Chrome to do this, but I haven't researched how.
 
 To insert a breakpoint, just add the line `debugger` to your code.
 
+#### Suggested development environment
+
+I believe it is very useful to lint your code as you write it.
+So, whatever editor you use, make sure to set up ESLint and
+Prettier to run automatically and preferably automatically
+fix your code.
+
+In VSCode, you can do that by installing the ESLint and Prettier
+add-ons. Then, add these values to your preferences:
+
+```
+"eslint.autoFixOnSave": true,
+"prettier.eslintIntegration": true
+```
+
 ### ... the production server
 
 Ensure all the proper environment variables are present, and then run:
@@ -99,4 +124,3 @@ Until you add more, these ones are necessary for a production deploy:
 This is for you to figure out for your own setup, but as a suggestion you can
 use the [`pm2` npm library](https://github.com/Unitech/pm2) to manage deployments
 on a dedicated server.
-
