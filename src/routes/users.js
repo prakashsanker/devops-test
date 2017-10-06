@@ -6,7 +6,8 @@ import usersDB from "../db/users";
  */
 export const create = route(
   async (req, res) => {
-    const newUser = await usersDB.create(req.name, req.password);
+    const { name, password } = req.body;
+    const newUser = await usersDB.create(name, password);
     res.send({ data: newUser });
   },
   {

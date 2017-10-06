@@ -1,5 +1,6 @@
 import { ApplicationError } from "../lib/errors";
 import { decodeToken, generateToken } from "../lib/token";
+import usersDB from "../db/users";
 import { route } from "./";
 
 export const authenticate = route(
@@ -9,7 +10,7 @@ export const authenticate = route(
     // user metadata in the JSON web token as you desire.
     const { id, password } = req.body;
 
-    const user = await getUserByCredentials(id, password);
+    const user = await usersDB.getUserByCredentials(id, password);
     if (!user) {
       throw new ApplicationError("Invalid credentials", 401);
     }
@@ -32,7 +33,7 @@ export const authenticate = route(
 );
 
 // middleware that verifies that a token is present and is legitimate.
-export const verify = (req, res, next) => {
+export const verify = async (req, res, next) => {
   const authHeader = req.get("Authorization");
   if (!authHeader || !authHeader.startsWith("Bearer ")) {
     next(
@@ -47,10 +48,17 @@ export const verify = (req, res, next) => {
   // strip the leading "Bearer " part from the rest of the token string
   const token = authHeader.substring("Bearer ".length);
   try {
-    const decoded = decodeToken(token);
+    const decoded = await decodeToken(token);
+    const user = await usersDB.getUserById(decoded.id);
+    if (!user) {
+      // just triggers the catch block below, contents of error are
+      // ignored
+      throw new ApplicationError("Not found");
+    }
     res.locals.authData = decoded;
+    next();
   } catch (err) {
     // assume failed decoding means bad token string
-    throw new ApplicationError("Could not verify token", 401);
+    next(new ApplicationError("Could not verify token", 401));
   }
 };
