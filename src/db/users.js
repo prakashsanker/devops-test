@@ -29,7 +29,7 @@ export class UsersDB {
    * @param {string} password user's password
    */
   getUserByCredentials = async (id, password) => {
-    const user = this.users.find(user => user.id === id);
+    const user = await this.getUserById(id, false);
     if (!user) {
       return null;
     }
@@ -38,6 +38,24 @@ export class UsersDB {
       return filterFields(user, PUBLIC_FIELDS);
     }
     return null;
+  };
+
+  /**
+   * Finds a user based on its id. If user doesn't exist, this
+   * function returns null.
+   * @param {string} id user's id
+   * @param {boolean} filterPrivateFields filter out private
+   * fields. defaults to true
+   */
+  getUserById = async (id, filterPrivateFields = true) => {
+    const user = this.users.find(user => user.id === id);
+    if (!user) {
+      return null;
+    }
+    if (filterPrivateFields) {
+      return filterFields(user, PUBLIC_FIELDS);
+    }
+    return user;
   };
 
   /**
