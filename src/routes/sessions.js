@@ -1,4 +1,4 @@
-import { ApplicationError } from "../errors";
+import { ApplicationError } from "../lib/errors";
 import { decodeToken, generateToken } from "../lib/token";
 import { route } from "./";
 

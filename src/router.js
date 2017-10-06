@@ -5,7 +5,7 @@ import express from "express";
 import path from "path";
 import cookieParser from "cookie-parser";
 
-import { ApplicationError } from "./errors";
+import { ApplicationError } from "./lib/errors";
 import {
   create as createUserRoute,
   list as listUsersRoute

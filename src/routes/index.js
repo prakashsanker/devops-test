@@ -1,3 +1,5 @@
+import { ApplicationError } from "../lib/errors";
+
 /**
  * Helper that throws an error to trigger a 400 response if a
  * field is missing.
