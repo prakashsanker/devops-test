@@ -21,19 +21,24 @@ Boilerplate for an API written in Express, based on some previous projects. It i
 * OSX: `brew install node`
 * Ubuntu: `apt-get install nodejs`
 
-### Clone the repository
+### Fork the repository
 
-1. Pull the repository: `git clone git@github.com:osdiab/express-api-boilerplate.git`
-1. Enter the directory: `cd express-api-boilerplate`
+Do NOT use this repository. This is a BOILERPLATE that you use for future backend repositories.
+
+To start a new project,
+
 
 ### Install dependencies
 
-The Node Package Manager (`npm`) manages library dependencies for you in Node projects. You can find
-the list of dependencies for any Node project in its `package.json` file. To install them, simply
+You will need to either use yarn or npm. I strongly suggest using yarn, it is much faster than NPM.
+
+You can install it here https://yarnpkg.com/en/
+
+You can find the list of dependencies for any Node project in its `package.json` file. To install them, simply
 run:
 
 ```
-npm install
+yarn install
 ```
 
 This will download all the Node libraries you need, and place them into the `node_modules/`
@@ -50,7 +55,7 @@ Uses the [Jest test runner](https://facebook.github.io/jest/) to
 run tests.
 
 ```
-npm test
+yarn test
 ```
 
 ### lint
@@ -60,8 +65,8 @@ Uses [Prettier](https://github.com/prettier/prettier) and
 to standardize coding style and check imports.
 
 ```
-npm run-script lint # shows lint errors
-npm run-script fix-lint # fixes lint errors, shows any remaining
+yarn run lint # shows lint errors
+yarn run fix-lint # fixes lint errors, shows any remaining
 ```
 
 ### ... the development server
@@ -69,7 +74,7 @@ npm run-script fix-lint # fixes lint errors, shows any remaining
 Run this command (which is defined in the `scripts` section of `package.json`):
 
 ```
-npm run-script dev-server
+yarn run dev-server
 ```
 
 Et voilà! Visit [localhost:3000](http://localhost:3000) to see everything in action.
@@ -87,32 +92,51 @@ you can use Chrome to do this, but I haven't researched how.
 
 To insert a breakpoint, just add the line `debugger` to your code.
 
-#### Suggested development environment
+####  Development environment
 
-I believe it is very useful to lint your code as you write it.
-So, whatever editor you use, make sure to set up ESLint and
-Prettier to run automatically and preferably automatically
-fix your code.
+You should all be using VSCode - https://code.visualstudio.com/
 
-In VSCode, you can do that by installing the ESLint and Prettier
-add-ons. Then, add these values to your preferences:
+After you have installed it, go to the extensions button on the left. In the search bar, search for these extensions and install them. You need to refresh your workspace for these to take effect.
+
+```
+dbaeumer.vscode-eslint
+esbenp.prettier-vscode
+```
+
+Then go to your vscode settings and add these -
 
 ```
 "eslint.autoFixOnSave": true,
 "prettier.eslintIntegration": true
 ```
 
+### Pull Request Workflow
+
+For every feature this is how you should work -
+
+1. You are on master
+2. `git pull`
+3. `git checkout -b <branch_name>`
+4. Make your changes
+5. `git add -A`
+6. `git commit -m "put in a commit message"`
+7. The first time that you push a branch, you need to run `git push -u origin <branch_name>`
+   For ALL OTHER TIMES, you just need to do `git push`
+8. In Github, OPEN A NEW PULL REQUEST.
+9. Get somebody (your team lead) to REVIEW THE CODE.
+
+
 ### ... the production server
 
 Ensure all the proper environment variables are present, and then run:
 
 ```
-npm start
+yarn start
 ```
 
 #### Required environment variables
 
-Until you add more, these ones are necessary for a production deploy:
+Until you add more, these ones are *necessary* for a production deploy:
 
 * `PRIVKEY_CERT_LOC` and `FULLCHAIN_CERT_LOC`: Location of
   SSL certificate files, as produced by LetsEncrypt's `autocert`
