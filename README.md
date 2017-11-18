@@ -30,6 +30,7 @@ Do NOT use this repository. This is a BOILERPLATE that you use for future backen
 3. `cd api-express-boilerplate`
 4. `git remote set-url origin git@github.com:XelpmocDesignandTechPvtLtd/<project_name_goes_here-api`
 5. `git push origin master`
+6. REMEMBER to set the url back `git remote set-url origin git@github.com:XelpmocDesignandTechPvtLtd/api-express-boilerplate.git`. (THIS IS CRUCIAL DO NOT FORGET THIS)
 
 ### Install dependencies
 
