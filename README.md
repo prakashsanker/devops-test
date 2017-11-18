@@ -21,12 +21,15 @@ Boilerplate for an API written in Express, based on some previous projects. It i
 * OSX: `brew install node`
 * Ubuntu: `apt-get install nodejs`
 
-### Fork the repository
+### Start a new project
 
 Do NOT use this repository. This is a BOILERPLATE that you use for future backend repositories.
 
-To start a new project,
-
+1. Create a new repository (you should call it `project_name_goes_here-api`)
+2. `git clone git@github.com:XelpmocDesignandTechPvtLtd/api-express-boilerplate.git`
+3. `cd api-express-boilerplate`
+4. `git remote set-url origin git@github.com:XelpmocDesignandTechPvtLtd/<project_name_goes_here-api`
+5. `git push origin master`
 
 ### Install dependencies
 
