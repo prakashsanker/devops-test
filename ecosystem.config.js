@@ -1,52 +1,20 @@
 module.exports = {
-  /**
-   * Application configuration section
-   * http://pm2.keymetrics.io/docs/usage/application-declaration/
-   */
-  apps: [
-    // First application
-    {
-      name: "API",
-      script: "src/index.js",
-      env: {
-        COMMON_VARIABLE: "true"
-      },
-      env_production: {
-        NODE_ENV: "production"
-      }
-    },
-
-    //Second application
-    {
-      name: "WEB",
-      script: "web.js"
-    }
-  ],
-
-  /**
-   * Deployment section
-   * http://pm2.keymetrics.io/docs/usage/deployment/
-   */
+  apps: [{
+    name: '121policy',
+    script: 'index.js'
+  }],
   deploy: {
     production: {
-      user: "node",
-      host: "212.83.163.1",
-      ref: "origin/master",
-      repo: "git@github.com:repo.git",
-      path: "/var/www/production",
-      "post-deploy":
-        "npm install && pm2 reload ecosystem.config.js --env production"
-    },
-    dev: {
-      user: "node",
-      host: "212.83.163.1",
-      ref: "origin/master",
-      repo: "git@github.com:repo.git",
-      path: "/var/www/development",
-      "post-deploy": "npm install && pm2 reload ecosystem.config.js --env dev",
-      env: {
-        NODE_ENV: "dev"
-      }
+      user: 'ec2-user',
+      host: 'ec2-13-126-33-185.ap-south-1.compute.amazonaws.com',
+      key: '121policy_backup_mumbai.pem',
+      ref: 'origin/master',
+      "post-setup": "ls -la",
+      "pre-deploy-local" : "echo 'This is a local executed command'",
+      repo: 'https://github.com/Manishjha1991/api-express-boilerplate.git',
+      "ssh_options": ["StrictHostKeyChecking=no", "PasswordAuthentication=no"],
+      path:'/home/ec2-user/api-express-boilerplate', 
+      'post-deploy': 'npm install && pm2 startOrRestart ecosystem.config.js'
     }
   }
-};
+}
