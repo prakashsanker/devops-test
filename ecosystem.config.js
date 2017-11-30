@@ -4,7 +4,7 @@
 module.exports = {
   apps: [{
     name: '121policy',
-    script: 'index.js'
+    script: './src/index.js'
   }],
   deploy: {
     production: {
@@ -14,7 +14,8 @@ module.exports = {
       ref: 'origin/master',
       "post-setup": "ls -la",
       "pre-deploy-local" : "echo 'This is a local executed command'",
-      repo: 'https://github.com/Manishjha1991/api-express-boilerplate.git',
+      //repo: 'https://github.com/Manishjha1991/api-express-boilerplate.git',
+      repo:'git@github.com:Manishjha1991/api-express-boilerplate.git',
       "ssh_options": ["StrictHostKeyChecking=no", "PasswordAuthentication=no"],
       path:'/home/ec2-user/api-express-boilerplate', 
       'post-deploy': 'npm install && pm2 startOrRestart ecosystem.config.js'

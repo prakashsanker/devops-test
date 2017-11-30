@@ -8,7 +8,8 @@
     "start": "yarn run-script build && nodemon --exec \"NODE_ENV=production node build/index.js\"",
     "test": "jest",
     "lint": "eslint 'src/**/*.js'",
-    "fix-lint": "prettier --write './src/**/*.js' && npm run-script lint"
+    "fix-lint": "prettier --write './src/**/*.js' && npm run-script lint",
+    "deploy": "pm2 deploy ecosystem.config.js production --force"
   },
   "jest": {
     "moduleFileExtensions": [
