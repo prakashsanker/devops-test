@@ -6,9 +6,9 @@ dependencies:
   override:
     - yarn install --dev
 
-database:
-  override:
-    - mysql -u ubuntu circle_test < my-database-setup.sql
+# database:
+#   override:
+#     - mysql -u ubuntu circle_test < my-database-setup.sql
 
 test:
   override:
