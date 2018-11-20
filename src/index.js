@@ -12,13 +12,6 @@ import createRouter from "./router";
 
 const app = express();
 const isProduction = getEnv("NODE_ENV") === "production";
-const commitRef = process.env.APP_COMMIT_REF || "N/A";
-const buildDate = process.env.APP_BUILD_DATE || new Date().toISOString();
-console.log("COMMIT REF");
-console.log(commitRef);
-console.log("BUILD DATE");
-console.log(buildDate);
-console.log("WHAT");
 
 if (isProduction) {
   app.use(forceSsl);
