@@ -27,7 +27,13 @@ export default function createRouter() {
 
   router.use(cookieParser()); // parse cookies automatically
   router.use(bodyParser.json()); // parse json bodies automatically
-
+  const commitRef = process.env.APP_COMMIT_REF || "N/A";
+  const buildDate = process.env.APP_BUILD_DATE || new Date().toISOString();
+  console.log("COMMIT REF");
+  console.log(commitRef);
+  console.log("BUILD DATE");
+  console.log(buildDate);
+  console.log("WHAT");
   /**
    * Uncached routes:
    * All routes that shouldn't be cached (i.e. non-static assets)
@@ -67,7 +73,11 @@ export default function createRouter() {
 
   // 404 route
   router.all("/*", (req, res, next) => {
-    next(new ApplicationError("Not Found", 404));
+    const text = `${welcome}! We're at commit ${commitRef} which was built at ${
+      buildDate
+    }`;
+    res.send(text);
+    // next(new ApplicationError("Not Found", 404));
   });
 
   // catch all ApplicationErrors, then output proper error responses.
