@@ -73,7 +73,7 @@ export default function createRouter() {
 
   // 404 route
   router.all("/*", (req, res, next) => {
-    const text = `${welcome}! We're at commit ${commitRef} which was built at ${
+    const text = `Hello! We're at commit ${commitRef} which was built at ${
       buildDate
     }`;
     res.send(text);
