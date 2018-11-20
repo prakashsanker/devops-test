@@ -29,7 +29,7 @@ jobs:
       - PROJECT_NAME: "dev-ops-test"
       - GOOGLE_PROJECT_ID: "kube-test-222309"
       - GOOGLE_COMPUTE_ZONE: "asia-south1-a"
-      - GOOGLE_CLUSTER_NAME: "cluster-1"
+      - GOOGLE_CLUSTER_NAME: "standard-cluster-2"
     steps:
       - checkout
       - run:
