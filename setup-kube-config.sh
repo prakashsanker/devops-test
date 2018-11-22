@@ -2,9 +2,6 @@
 # This is a script that will help you set up your kubernetes file
 # It will get credentials from AWS or GCLOUD for kubernetes
 # It will NOT handle the installation of those SDKs.
-# It will handle modifying your .gitignore so that credentials are not committed to github.
-# DO NOT MODIFY THIS
-# RUN IT ONLY ONCE
 for i in "$@"
 do
 case $i in
@@ -39,6 +36,10 @@ if [ $CLOUDPROVIDER == "gcloud" ]; then
     echo "Please enter project id"
     read PROJECTID
     gcloud config set project $PROJECTID
+
+    echo "Please enter project name"
+    read XELPMOC_PROJECTNAME
+    export XELPMOC_PROJECTNAME
     # gcloud is installed
     # we want to get the cluster name
     echo "Please enter cluster name"
@@ -62,5 +63,6 @@ if [ $CLOUDPROVIDER == "gcloud" ]; then
       gcloud config set compute/region $REGION
     fi
     gcloud container clusters get-credentials $CLUSTERNAME
+
   fi
 fi
