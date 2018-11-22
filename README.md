@@ -149,6 +149,42 @@ Until you add more, these ones are *necessary* for a production deploy:
 
 ## Deploying
 
-This is for you to figure out for your own setup, but as a suggestion you can
-use the [`pm2` npm library](https://github.com/Unitech/pm2) to manage deployments
-on a dedicated server.
+This comes with a default circle.yml configuration for circleci.
+
+It's not perfect and it requires some setup with circle.
+
+You can find instructions here, and these are up to date as of November 2018.
+
+https://medium.com/@admm/ci-cd-using-circleci-and-google-kubernetes-engine-gke-7ed3a5ad57e
+
+## Rollback
+
+In order to achieve rollbacks you need to do two things
+
+First is run this script
+
+```
+./setup-kube-config --cloudprovider=<"gcloud" | "aws">
+```
+All the information you need to fill out this file is in `circle.yml`
+
+IF you are working on multiple projects, then you need to run the above script everytime you switch.
+
+You can then run this in order to get the history of deployments
+
+```
+kubectl rollout history deployment.v1.apps/<PROJECT_NAME>
+```
+
+You then run this in order to rollback to an earlier version
+
+```
+kubectl rollout undo deployment.v1.apps/<PROJECT_NAME> --to-revision=<REVISION_NUMBER>
+```
+
+`PROJECT_NAME` can be found in the `circle.yml` file.
+
+
+
+
+

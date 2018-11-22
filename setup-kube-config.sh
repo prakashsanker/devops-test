@@ -37,9 +37,6 @@ if [ $CLOUDPROVIDER == "gcloud" ]; then
     read PROJECTID
     gcloud config set project $PROJECTID
 
-    echo "Please enter project name"
-    read XELPMOC_PROJECTNAME
-    export XELPMOC_PROJECTNAME
     # gcloud is installed
     # we want to get the cluster name
     echo "Please enter cluster name"
