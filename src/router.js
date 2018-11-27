@@ -76,6 +76,9 @@ export default function createRouter() {
     const text = `Hello! We're at commit ${commitRef} which was built at ${
       buildDate
     }`;
+    // const text = `Hello! We're at commit ${commitRef} which was built at ${
+    //   buildDate
+    // }`;
     res.send(text);
     // next(new ApplicationError("Not Found", 404));
   });
