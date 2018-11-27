@@ -73,10 +73,9 @@ export default function createRouter() {
 
   // 404 route
   router.all("/*", (req, res, next) => {
-    // const text = `Hello! We're at commit ${commitRef} which was built at ${
-    //   buildDate
-    // }`;
-    const text = "THIS IS SOMETHING NEW";
+    const text = `Hello! We're at commit ${commitRef} which was built at ${
+      buildDate
+    }`;
     res.send(text);
     // next(new ApplicationError("Not Found", 404));
   });
