@@ -29,7 +29,7 @@ spec:
     spec:
       containers:
         - name: dev-ops-test
-          image: asia.gcr.io/kube-test-222309/dev-ops-test:88d046ed792d8a1ea8e390152f8880ef7a22c1e9
+          image: asia.gcr.io/kube-test-222309/dev-ops-test:974a3a98403929d8cd9021e2373a5e7aa5e477c6
           ports:
             - name: http
               containerPort: 3000
