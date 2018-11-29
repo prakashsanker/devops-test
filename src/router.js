@@ -29,11 +29,7 @@ export default function createRouter() {
   router.use(bodyParser.json()); // parse json bodies automatically
   const commitRef = process.env.APP_COMMIT_REF || "N/A";
   const buildDate = process.env.APP_BUILD_DATE || new Date().toISOString();
-  console.log("COMMIT REF");
-  console.log(commitRef);
-  console.log("BUILD DATE");
-  console.log(buildDate);
-  console.log("WHAT");
+
   /**
    * Uncached routes:
    * All routes that shouldn't be cached (i.e. non-static assets)
@@ -76,10 +72,7 @@ export default function createRouter() {
     const text = `Hello! We're at commit ${commitRef} which was built at ${
       buildDate
     }`;
-    // const text = `Hello! We're at commit ${commitRef} which was built at ${
-    //   buildDate
-    // }`;
-    res.send(text);
+    res.send("FORCE DEPLOY 3");
     // next(new ApplicationError("Not Found", 404));
   });
 

@@ -1,0 +1,36 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: dev-ops-test
+spec:
+  selector:
+    app: dev-ops-test
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 3000
+  type: LoadBalancer
+---
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: dev-ops-test
+  labels:
+    app: dev-ops-test
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: dev-ops-test
+  template:
+    metadata:
+      labels:
+        app: dev-ops-test
+    spec:
+      containers:
+        - name: dev-ops-test
+          image: asia.gcr.io/kube-test-222309/dev-ops-test:974a3a98403929d8cd9021e2373a5e7aa5e477c6
+          ports:
+            - name: http
+              containerPort: 3000
+              protocol: TCP
