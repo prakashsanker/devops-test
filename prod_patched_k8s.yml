@@ -1,16 +1,16 @@
 kind: Namespace
 apiVersion: v1
 metadata:
-  name: dev
+  name: prod
 ---
 kind: Service
 apiVersion: v1
 metadata:
-  name: ${PROJECT_NAME}
-  namespace: dev
+  name: dev-ops-test
+  namespace: prod
 spec:
   selector:
-    app: ${PROJECT_NAME}
+    app: dev-ops-test
   ports:
     - protocol: TCP
       port: 80
@@ -20,23 +20,23 @@ spec:
 apiVersion: apps/v1beta1
 kind: Deployment
 metadata:
-  name: ${PROJECT_NAME}
-  namespace: dev
+  name: dev-ops-test
+  namespace: prod
   labels:
-    app: ${PROJECT_NAME}
+    app: dev-ops-test
 spec:
   replicas: 2
   selector:
     matchLabels:
-      app: ${PROJECT_NAME}
+      app: dev-ops-test
   template:
     metadata:
       labels:
-        app: ${PROJECT_NAME}
+        app: dev-ops-test
     spec:
       containers:
-        - name: ${PROJECT_NAME}
-          image: asia.gcr.io/${GOOGLE_PROJECT_ID}/${PROJECT_NAME}:${CIRCLE_SHA1}
+        - name: dev-ops-test
+          image: asia.gcr.io/kube-test-222309/dev-ops-test@sha256:309e1a11998a922a4b5465d59f94ad7e75f244f2
           ports:
             - name: http
               containerPort: 3000
