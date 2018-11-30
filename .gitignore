@@ -135,3 +135,6 @@ flycheck_*.el
 
 # sftp configuration file
 sftp-config.json
+
+patched_k8s.yml
+prod_patched_k8s.yml

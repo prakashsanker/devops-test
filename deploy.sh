@@ -3,9 +3,31 @@
 # This is a script that will deploy your current branch to the staging environment for this project
 # To do this I need to
 
+for i in "$@"
+do
+case $i in
+    -e=*|--env=*)
+    ENVIRONMENT="${i#*=}"
+    shift # past argument=value
+    ;;
+esac
+done
+
+
+if [ -z "$ENVIRONMENT" ]; then
+  echo "Please pass an environment - either dev or prod"
+  exit 1
+fi
+
+if [ "$ENVIRONMENT" != "dev" ] && [ "$ENVIRONMENT" != "prod" ]; then
+  echo "Please pass a valid environment - either dev or prod"
+  exit 1
+fi
+
 
 branch_name="$(git symbolic-ref HEAD 2>/dev/null)" ||
 branch_name="(unnamed branch)"
+
 
 echo "Is this the branch you want to push to staging?"
 echo $branch_name
@@ -29,14 +51,28 @@ then
   gcloud auth print-access-token | docker login -u oauth2accesstoken --password-stdin https://asia.gcr.io
   docker push asia.gcr.io/$PROJECT_ID/$PROJECT_NAME:$COMMIT_SHA
   echo $PROJECT_NAME
-  sed "s/\${PROJECT_NAME}/$PROJECT_NAME/g" k8s.yml > project_name_patched.yml
-  sed "s/\${GOOGLE_PROJECT_ID}/$PROJECT_ID/g" project_name_patched.yml > project_id_patched.yml
-  sed "s/\${CIRCLE_SHA1}/$COMMIT_SHA/g" project_id_patched.yml > patched_k8s.yml
+  if [ "$ENVIRONMENT" == "dev" ]; then
+    # we need to push to dev
+    sed "s/\${PROJECT_NAME}/$PROJECT_NAME/g" k8s.yml > project_name_patched.yml
+    sed "s/\${GOOGLE_PROJECT_ID}/$PROJECT_ID/g" project_name_patched.yml > project_id_patched.yml
+    sed "s/\${CIRCLE_SHA1}/$COMMIT_SHA/g" project_id_patched.yml > patched_k8s.yml
 
-  rm project_name_patched.yml
-  rm project_id_patched.yml
+    rm project_name_patched.yml
+    rm project_id_patched.yml
 
-  kubectl apply -f patched_k8s.yml
-  kubectl rollout status deployment/$PROJECT_NAME
+    kubectl apply -f patched_k8s.yml
+    kubectl rollout status deployment/$PROJECT_NAME
+  fi
 
+  if [ "$ENVIRONMENT" == "prod" ]; then
+    sed "s/\${PROJECT_NAME}/$PROJECT_NAME/g" prod_k8s.yml > project_name_patched.yml
+    sed "s/\${GOOGLE_PROJECT_ID}/$PROJECT_ID/g" project_name_patched.yml > project_id_patched.yml
+    sed "s/\${CIRCLE_SHA1}/$COMMIT_SHA/g" project_id_patched.yml > prod_patched_k8s.yml
+
+    rm project_name_patched.yml
+    rm project_id_patched.yml
+
+    kubectl apply -f prod_patched_k8s.yml
+    kubectl rollout status deployment/$PROJECT_NAME
+  fi
 fi

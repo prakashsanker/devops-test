@@ -164,7 +164,7 @@ In order to achieve rollbacks you need to do two things
 First is run this script
 
 ```
-./setup-kube-config --cloudprovider=<"gcloud" | "aws">
+./kube-setup.sh --cloudprovider=<"gcloud" | "aws">
 ```
 All the information you need to fill out this file is in `circle.yml`
 
@@ -183,6 +183,22 @@ kubectl rollout undo deployment.v1.apps/<PROJECT_NAME> --to-revision=<REVISION_N
 ```
 
 `PROJECT_NAME` can be found in the `circle.yml` file.
+
+NOTE - rollbacks exist *only* for prod. If you want to do a rollback for dev, then just do another deploy. It is less important that we fix things on staging.
+
+## Deploy a Branch
+
+
+In order to deploy a branch, you need to be checked out into the branch that you want to push up and then run the below.
+
+```
+./deploy --env=<prod or dev>
+```
+
+depending on the environment you are force deploying to.
+
+Use this *sparingly* you only have to use it if you want to force push a branch to fix a bug, or if you want to test a branch on staging.
+
 
 
 
