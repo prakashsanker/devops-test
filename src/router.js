@@ -72,7 +72,7 @@ export default function createRouter() {
     const text = `Hello! We're at commit ${commitRef} which was built at ${
       buildDate
     }`;
-    res.send("FORCE DEPLOY 3");
+    res.send(text);
     // next(new ApplicationError("Not Found", 404));
   });
 
